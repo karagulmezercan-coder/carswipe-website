@@ -10,18 +10,24 @@
 
     /* ── SIDEBAR ── */
     .sidebar {
-      width: 200px; min-width: 200px; background: #fff;
+      width: 210px; min-width: 210px; background: #fff;
       border-right: 1px solid #eee;
       display: flex; flex-direction: column;
       padding-top: 24px; padding-bottom: 24px;
+      overflow-y: auto;
     }
     .logo {
       font-size: 20px; font-weight: 900; color: #E53935;
-      letter-spacing: -0.5px; padding: 0 20px; margin-bottom: 32px;
+      letter-spacing: -0.5px; padding: 0 20px; margin-bottom: 28px;
+    }
+    .sidebar-section {
+      font-size: 10px; font-weight: 700; color: #bbb;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: 0 20px; margin: 16px 0 6px;
     }
     .nav-item {
       display: flex; align-items: center; gap: 12px;
-      padding: 11px 20px; cursor: pointer;
+      padding: 10px 20px; cursor: pointer;
       border-radius: 10px; margin: 2px 8px;
       font-size: 14px; font-weight: 500; color: #555;
       transition: background .15s, color .15s;
@@ -32,7 +38,7 @@
     .nav-icon {
       width: 32px; height: 32px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 16px; flex-shrink: 0;
+      font-size: 15px; flex-shrink: 0;
     }
     .nav-item.active .nav-icon { background: #E53935; color: #fff; }
     .nav-item:not(.active) .nav-icon { background: transparent; color: #aaa; }
@@ -40,84 +46,44 @@
     /* ── MAIN ── */
     .main {
       flex: 1; display: flex; align-items: center; justify-content: center;
-      position: relative;
+      position: relative; overflow-y: auto;
     }
 
-    /* Phone frame */
+    /* ── VIEWS ── */
+    .view { display: none; width: 100%; height: 100%; }
+    .view.active { display: flex; }
+
+    /* ── KEŞFET (phone) ── */
+    #view-kesfet { align-items: center; justify-content: center; }
     .phone-frame {
-      width: 320px; height: 640px;
-      background: #fff;
+      width: 320px; height: 640px; background: #fff;
       border-radius: 44px;
       box-shadow: 0 0 0 8px #222, 0 20px 60px rgba(0,0,0,0.3);
-      overflow: hidden;
-      position: relative;
+      overflow: hidden; position: relative;
       display: flex; flex-direction: column;
     }
-    /* Notch bar */
-    .phone-notch {
-      background: #222;
-      height: 28px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .phone-notch-bar {
-      width: 80px; height: 5px; background: #555; border-radius: 3px;
-    }
-
-    /* Card inside phone */
-    .card-area {
-      flex: 1; position: relative; overflow: hidden; background: #111;
-    }
-    .card-img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      transition: opacity .3s;
-    }
+    .phone-notch { background: #222; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .phone-notch-bar { width: 80px; height: 5px; background: #555; border-radius: 3px; }
+    .card-area { flex: 1; position: relative; overflow: hidden; background: #111; }
+    .card-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity .3s; }
     .card-overlay {
       position: absolute; bottom: 0; left: 0; right: 0;
       background: linear-gradient(transparent 30%, rgba(0,0,0,0.72) 100%);
-      padding: 40px 18px 16px;
-      color: #fff;
+      padding: 40px 18px 16px; color: #fff;
     }
     .card-name { font-size: 20px; font-weight: 900; line-height: 1.15; margin-bottom: 4px; }
     .card-price { font-size: 16px; font-weight: 700; color: #43A047; margin-bottom: 4px; }
     .card-meta { font-size: 12px; color: rgba(255,255,255,0.75); margin-bottom: 4px; }
     .card-seller { font-size: 12px; color: rgba(255,255,255,0.65); }
-
-    /* Swipe labels */
-    .swipe-label {
-      position: absolute; top: 20px; padding: 5px 14px;
-      border-radius: 8px; font-size: 20px; font-weight: 900;
-      letter-spacing: 2px; opacity: 0; pointer-events: none;
-      transition: opacity .15s; border: 3px solid;
-    }
+    .swipe-label { position: absolute; top: 20px; padding: 5px 14px; border-radius: 8px; font-size: 20px; font-weight: 900; letter-spacing: 2px; opacity: 0; pointer-events: none; transition: opacity .15s; border: 3px solid; }
     .label-like { left: 14px; color: #43A047; border-color: #43A047; transform: rotate(-12deg); }
     .label-pass { right: 14px; color: #E53935; border-color: #E53935; transform: rotate(12deg); }
-
-    /* Photo dots */
-    .photo-dots {
-      position: absolute; top: 10px; left: 10px; right: 10px;
-      display: flex; gap: 4px;
-    }
+    .photo-dots { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; gap: 4px; }
     .dot { flex: 1; height: 3px; border-radius: 2px; background: rgba(255,255,255,0.35); }
     .dot.active { background: #fff; }
-
-    /* Bottom bar inside phone */
-    .phone-bottom {
-      background: #fff; padding: 12px 0 10px; flex-shrink: 0;
-    }
-
-    /* Action buttons */
-    .actions {
-      display: flex; align-items: center; justify-content: center;
-      gap: 16px;
-    }
-    .act-btn {
-      border-radius: 50%; border: 2px solid; background: #fff;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; font-size: 20px;
-      transition: transform .15s, box-shadow .15s;
-      flex-shrink: 0;
-    }
+    .phone-bottom { background: #fff; padding: 12px 0 10px; flex-shrink: 0; }
+    .actions { display: flex; align-items: center; justify-content: center; gap: 16px; }
+    .act-btn { border-radius: 50%; border: 2px solid; background: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 20px; transition: transform .15s, box-shadow .15s; flex-shrink: 0; }
     .act-btn:hover { transform: scale(1.12); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
     .act-btn.sm { width: 46px; height: 46px; font-size: 18px; }
     .act-btn.lg { width: 58px; height: 58px; font-size: 26px; }
@@ -126,7 +92,62 @@
     .btn-like { border-color: #E91E8C; color: #E91E8C; }
     .btn-super { border-color: #42A5F5; color: #42A5F5; }
 
-    @media (max-width: 700px) { .sidebar { display: none; } }
+    /* ── CONTENT PAGES ── */
+    .content-page {
+      width: 100%; max-width: 760px; margin: 0 auto;
+      padding: 48px 40px; display: flex; flex-direction: column; gap: 40px;
+    }
+    .page-title { font-size: 32px; font-weight: 900; color: #111; }
+    .page-subtitle { font-size: 16px; color: #666; margin-top: 8px; line-height: 1.6; }
+
+    /* Nasıl Çalışır steps */
+    .steps { display: flex; flex-direction: column; gap: 24px; }
+    .step { display: flex; gap: 20px; background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .step-num { width: 44px; height: 44px; border-radius: 50%; background: #E53935; color: #fff; font-size: 18px; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-body h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .step-body p { font-size: 14px; color: #666; line-height: 1.6; }
+
+    /* Hakkında */
+    .features { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .feature-card { background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .feature-icon { font-size: 28px; margin-bottom: 12px; }
+    .feature-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .feature-card p { font-size: 13px; color: #666; line-height: 1.6; }
+
+    /* İndir */
+    .download-section { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+    .store-btn {
+      display: flex; align-items: center; gap: 14px;
+      background: #111; color: #fff; border-radius: 14px;
+      padding: 14px 28px; text-decoration: none;
+      transition: background .15s, transform .15s;
+      min-width: 220px;
+    }
+    .store-btn:hover { background: #333; transform: translateY(-2px); }
+    .store-btn .store-icon { font-size: 28px; }
+    .store-btn .store-text { display: flex; flex-direction: column; }
+    .store-btn .store-label { font-size: 11px; opacity: 0.7; }
+    .store-btn .store-name { font-size: 18px; font-weight: 700; }
+    .store-btn.google { background: #E53935; }
+    .store-btn.google:hover { background: #c62828; }
+    .qr-note { font-size: 13px; color: #999; margin-top: 8px; }
+
+    /* SSS */
+    .faq-list { display: flex; flex-direction: column; gap: 12px; }
+    .faq-item { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .faq-q {
+      padding: 18px 20px; font-size: 15px; font-weight: 600; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      user-select: none;
+    }
+    .faq-q:hover { background: #fff8f8; }
+    .faq-arrow { font-size: 12px; color: #aaa; transition: transform .2s; }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a { font-size: 14px; color: #555; line-height: 1.7; padding: 0 20px 18px; display: none; }
+    .faq-item.open .faq-a { display: block; }
+
+    @media (max-width: 700px) { .sidebar { display: none; } .features { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .content-page { padding: 32px 24px; } }
   </style>
 </head>
 <body>
@@ -135,65 +156,219 @@
 <div class="sidebar">
   <div class="logo">CarSwipe</div>
 
-  <a class="nav-item active" onclick="setActive(this)">
-    <div class="nav-icon">🔍</div>
-    Keşfet
+  <div class="sidebar-section">Uygulama</div>
+  <a class="nav-item active" onclick="showView('kesfet', this)">
+    <div class="nav-icon">🔍</div>Keşfet
   </a>
-  <a class="nav-item" onclick="setActive(this)">
-    <div class="nav-icon">≡</div>
-    Filtrele
+  <a class="nav-item" onclick="showView('kesfet', this)">
+    <div class="nav-icon">≡</div>Filtrele
   </a>
-  <a class="nav-item" onclick="setActive(this)">
-    <div class="nav-icon">♡</div>
-    Beğeniler
+  <a class="nav-item" onclick="showView('kesfet', this)">
+    <div class="nav-icon">♡</div>Beğeniler
   </a>
-  <a class="nav-item" onclick="setActive(this)">
-    <div class="nav-icon">💬</div>
-    Mesajlar
+  <a class="nav-item" onclick="showView('kesfet', this)">
+    <div class="nav-icon">💬</div>Mesajlar
   </a>
-  <a class="nav-item" onclick="setActive(this)">
-    <div class="nav-icon">👤</div>
-    Profil
+  <a class="nav-item" onclick="showView('kesfet', this)">
+    <div class="nav-icon">👤</div>Profil
+  </a>
+
+  <div class="sidebar-section">Bilgi</div>
+  <a class="nav-item" onclick="showView('nasil', this)">
+    <div class="nav-icon">▶</div>Nasıl Çalışır
+  </a>
+  <a class="nav-item" onclick="showView('hakkinda', this)">
+    <div class="nav-icon">ℹ</div>Hakkında
+  </a>
+  <a class="nav-item" onclick="showView('indir', this)">
+    <div class="nav-icon">⬇</div>İndir
+  </a>
+  <a class="nav-item" onclick="showView('sss', this)">
+    <div class="nav-icon">?</div>SSS
   </a>
 </div>
 
 <!-- MAIN -->
 <div class="main">
-  <div class="phone-frame">
-    <!-- Notch -->
-    <div class="phone-notch"><div class="phone-notch-bar"></div></div>
 
-    <!-- Card -->
-    <div class="card-area">
-      <img id="card-img" class="card-img" src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=700&q=80" alt="">
-
-      <div class="photo-dots">
-        <div class="dot active"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+  <!-- KEŞFET -->
+  <div class="view active" id="view-kesfet">
+    <div class="phone-frame">
+      <div class="phone-notch"><div class="phone-notch-bar"></div></div>
+      <div class="card-area">
+        <img id="card-img" class="card-img" src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=700&q=80" alt="">
+        <div class="photo-dots">
+          <div class="dot active"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+        <div class="card-overlay">
+          <div class="card-name" id="card-name">Toyota Corolla 2022</div>
+          <div class="card-price" id="card-price">895.000 ₺</div>
+          <div class="card-meta" id="card-meta">📍 İstanbul · Kadıköy · 22.000 km</div>
+          <div class="card-seller" id="card-seller">Sahibinden</div>
+        </div>
+        <div class="swipe-label label-like" id="label-like">BEĞENDİM</div>
+        <div class="swipe-label label-pass" id="label-pass">GEÇTİM</div>
       </div>
-
-      <div class="card-overlay">
-        <div class="card-name" id="card-name">Toyota Corolla 2022</div>
-        <div class="card-price" id="card-price">895.000 ₺</div>
-        <div class="card-meta" id="card-meta">📍 İstanbul · Kadıköy · 22.000 km</div>
-        <div class="card-seller" id="card-seller">Sahibinden</div>
-      </div>
-
-      <div class="swipe-label label-like" id="label-like">BEĞENDİM</div>
-      <div class="swipe-label label-pass" id="label-pass">GEÇTİM</div>
-    </div>
-
-    <!-- Bottom -->
-    <div class="phone-bottom">
-      <div class="actions">
-        <button class="act-btn sm btn-undo" title="Geri Al" onclick="void 0">↺</button>
-        <button class="act-btn lg btn-pass" title="Geç" onclick="animatePass()">✕</button>
-        <button class="act-btn lg btn-like" title="Beğen" onclick="animateLike()">♥</button>
-        <button class="act-btn sm btn-super" title="Süper Beğen" onclick="void 0">★</button>
+      <div class="phone-bottom">
+        <div class="actions">
+          <button class="act-btn sm btn-undo" onclick="void 0">↺</button>
+          <button class="act-btn lg btn-pass" onclick="animatePass()">✕</button>
+          <button class="act-btn lg btn-like" onclick="animateLike()">♥</button>
+          <button class="act-btn sm btn-super" onclick="void 0">★</button>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- NASIL ÇALIŞIR -->
+  <div class="view" id="view-nasil">
+    <div class="content-page">
+      <div>
+        <div class="page-title">Nasıl Çalışır?</div>
+        <div class="page-subtitle">CarSwipe ile ikinci el araç bulmak sadece 3 adım.</div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h3>Hesap Oluştur</h3>
+            <p>Uygulamayı indir, birkaç saniyede ücretsiz hesabını aç. Telefon numaranla giriş yap, hemen kullanmaya başla.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h3>Filtrele & Keşfet</h3>
+            <p>Bütçeni, marka ve model tercihini, kilometresini belirle. CarSwipe sana en uygun araçları kart kart gösterir.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h3>Sağa Kaydır, Beğen</h3>
+            <p>Beğendiğin araca sağa, geçmek istediğine sola kaydır. Satıcıyla doğrudan mesajlaşarak anında iletişime geç.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h3>Güvenle Al Sat</h3>
+            <p>Onaylı satıcı rozetleri ve kullanıcı yorumlarıyla güvenli alışveriş yap. İlan ver, aracını hızla sat.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HAKKINDA -->
+  <div class="view" id="view-hakkinda">
+    <div class="content-page">
+      <div>
+        <div class="page-title">CarSwipe Nedir?</div>
+        <div class="page-subtitle">Türkiye'nin ilk swipe tabanlı ikinci el araç platformu. Tinder mantığıyla araç bul — hızlı, eğlenceli ve akıllı.</div>
+      </div>
+      <div class="features">
+        <div class="feature-card">
+          <div class="feature-icon">🚗</div>
+          <h3>Binlerce İlan</h3>
+          <p>Her marka, her model, her bütçeye uygun binlerce araç ilanı tek platformda.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Anlık Eşleşme</h3>
+          <p>Swipe yap, beğen, satıcıyla anında mesajlaş. Süreç çok daha hızlı.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3>Akıllı Filtreler</h3>
+          <p>Marka, model, yıl, km, yakıt tipi ve bütçeye göre hassas filtreleme.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3>Güvenli Platform</h3>
+          <p>Onaylı satıcılar, doğrulanmış ilanlar ve kullanıcı değerlendirmeleriyle güvenli alışveriş.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <h3>Anlık Mesajlaşma</h3>
+          <p>Satıcıyla uygulama içinden doğrudan iletişim kur, pazarlık yap.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📍</div>
+          <h3>Konuma Göre</h3>
+          <p>Bulunduğun şehre yakın araçları öne çıkar, gereksiz uzak ilanları filtrele.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- İNDİR -->
+  <div class="view" id="view-indir">
+    <div class="content-page">
+      <div>
+        <div class="page-title">Uygulamayı İndir</div>
+        <div class="page-subtitle">CarSwipe iOS ve Android'de ücretsiz. Hemen indir, dakikalar içinde araç keşfetmeye başla.</div>
+      </div>
+      <div class="download-section">
+        <a class="store-btn" href="#" onclick="return false;">
+          <div class="store-icon">🍎</div>
+          <div class="store-text">
+            <span class="store-label">App Store'dan İndir</span>
+            <span class="store-name">iPhone & iPad</span>
+          </div>
+        </a>
+        <a class="store-btn google" href="#" onclick="return false;">
+          <div class="store-icon">🤖</div>
+          <div class="store-text">
+            <span class="store-label">Google Play'den İndir</span>
+            <span class="store-name">Android</span>
+          </div>
+        </a>
+        <div class="qr-note">📱 Yakında App Store ve Google Play'de!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SSS -->
+  <div class="view" id="view-sss">
+    <div class="content-page">
+      <div>
+        <div class="page-title">Sık Sorulan Sorular</div>
+        <div class="page-subtitle">Aklındaki soruların cevapları burada.</div>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">CarSwipe ücretsiz mi? <span class="faq-arrow">▼</span></div>
+          <div class="faq-a">Evet, CarSwipe tamamen ücretsizdir. Hesap oluşturmak, ilan görmek ve mesajlaşmak için herhangi bir ücret ödemezsiniz.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">İlan nasıl veririm? <span class="faq-arrow">▼</span></div>
+          <div class="faq-a">Uygulamayı indirip kayıt olduktan sonra "İlan Ver" butonuna tıklayın. Araç bilgilerinizi ve fotoğraflarınızı ekleyip birkaç dakika içinde ilanınızı yayınlayabilirsiniz.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Satıcılarla nasıl iletişim kurarım? <span class="faq-arrow">▼</span></div>
+          <div class="faq-a">Beğendiğiniz bir araca sağa kaydırdığınızda veya ilan detayından "Mesaj Gönder" butonuna bastığınızda satıcıyla doğrudan uygulama içi mesajlaşma başlar.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">İlanlar güvenilir mi? <span class="faq-arrow">▼</span></div>
+          <div class="faq-a">Tüm ilanlar yayına girmeden önce temel kontrol süreçlerinden geçer. Ayrıca onaylı satıcı rozetleri ve kullanıcı değerlendirmeleri güvenli alışverişe yardımcı olur. Şüpheli bir ilanla karşılaşırsanız raporlayabilirsiniz.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Hangi araç tiplerini bulabilirim? <span class="faq-arrow">▼</span></div>
+          <div class="faq-a">Otomobil, SUV, minivan, ticari araç, elektrikli araç ve klasik araç dahil tüm kategorilerde binlerce ilan bulunmaktadır. Filtrelerle tam aradığınızı bulabilirsiniz.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Uygulama hangi cihazlarda çalışır? <span class="faq-arrow">▼</span></div>
+          <div class="faq-a">CarSwipe iOS (iPhone ve iPad) ve Android cihazlarda çalışır. App Store ve Google Play üzerinden ücretsiz indirilebilir.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Beğenmediğim bir ilanı geri getirebilir miyim? <span class="faq-arrow">▼</span></div>
+          <div class="faq-a">Evet! Ekranın altındaki geri al (↺) butonuyla en son geçtiğiniz ilanı tekrar görebilirsiniz.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -205,7 +380,6 @@ const cars = [
   { name:'Audi A4 2022', price:'1.850.000 ₺', meta:'📍 İstanbul · Beşiktaş · 22.000 km', seller:'Galeriden', img:'photo-1542362567-b07e54358753' },
   { name:'Porsche Cayenne 2019', price:'3.200.000 ₺', meta:'📍 İstanbul · Sarıyer · 45.000 km', seller:'Galeriden', img:'photo-1553440569-bcc63803a83d' },
 ];
-
 let idx = 0;
 
 function loadCard(i) {
@@ -230,9 +404,16 @@ function animatePass() {
   setTimeout(() => { lbl.style.opacity = '0'; loadCard(idx + 1); }, 600);
 }
 
-function setActive(el) {
+function showView(id, el) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   el.classList.add('active');
+}
+
+function toggleFaq(el) {
+  const item = el.parentElement;
+  item.classList.toggle('open');
 }
 </script>
 </body>
