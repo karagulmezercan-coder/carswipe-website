@@ -195,7 +195,6 @@
   <div class="sidebar-section">Uygulama</div>
   <a class="nav-item active" onclick="showView('kesfet', this)"><div class="nav-icon">🔍</div>Keşfet</a>
   <a class="nav-item" onclick="showView('filtrele', this)"><div class="nav-icon">≡</div>Filtrele</a>
-  <a class="nav-item" onclick="showView('begeniler', this)"><div class="nav-icon">♡</div>Beğeniler</a>
   <a class="nav-item" onclick="showView('mesajlar', this)"><div class="nav-icon">💬</div>Mesajlar</a>
   <a class="nav-item" onclick="showView('profil', this)"><div class="nav-icon">👤</div>Profil</a>
   <div class="sidebar-section">Bilgi</div>
@@ -223,14 +222,13 @@
         </div>
         <div class="swipe-label label-like" id="label-like">BEĞENDİM</div>
         <div class="swipe-label label-pass" id="label-pass">GEÇTİM</div>
-        <div class="swipe-label label-super" id="label-super">SÜPER</div>
       </div>
       <div class="phone-bottom">
         <div class="actions">
           <button class="act-btn sm btn-undo" onclick="undoCard()" title="Geri Al">↺</button>
           <button class="act-btn lg btn-pass" onclick="animatePass()" title="Geç">✕</button>
           <button class="act-btn lg btn-like" onclick="animateLike()" title="Beğen">♥</button>
-          <button class="act-btn sm btn-super" onclick="animateSuper()" title="Süper Beğen">★</button>
+          <button class="act-btn sm btn-super" onclick="goBegeniler()" title="Beğeniler">★</button>
         </div>
       </div>
     </div>
@@ -575,11 +573,11 @@ function animatePass() {
   lbl.style.opacity = '1';
   setTimeout(() => { lbl.style.opacity = '0'; loadCard(idx + 1, true); }, 500);
 }
-function animateSuper() {
-  history.push(idx);
-  const lbl = document.getElementById('label-super');
-  lbl.style.opacity = '1';
-  setTimeout(() => { lbl.style.opacity = '0'; loadCard(idx + 1, true); }, 500);
+function goBegeniler() {
+  const el = document.querySelector('.nav-item[onclick*="begeniler"]') || document.querySelector('.nav-item');
+  showView('begeniler', el);
+  // Sidebar'da aktif item'ı temizle (begeniler artık sidebar'da yok)
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
 }
 function undoCard() {
   if (history.length === 0) return;
