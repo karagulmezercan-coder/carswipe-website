@@ -104,6 +104,66 @@
     .faq-a { font-size: 14px; color: #555; line-height: 1.7; padding: 0 20px 18px; display: none; }
     .faq-item.open .faq-a { display: block; }
 
+    /* APP PHONE SCREENS (Filtrele, Beğeniler, Mesajlar, Profil) */
+    .app-screen { display: flex; flex-direction: column; width: 340px; height: 680px; background: #f5f5f5; border-radius: 40px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 2px #222; }
+    .app-notch { background: #111; padding: 14px 0 10px; display: flex; justify-content: center; flex-shrink: 0; }
+    .app-notch-bar { width: 90px; height: 5px; background: #333; border-radius: 3px; }
+    .app-header { background: #E53935; padding: 14px 20px 16px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; position: relative; }
+    .app-header-title { color: #fff; font-size: 18px; font-weight: 700; letter-spacing: 0.3px; }
+    .app-header-back { position: absolute; left: 16px; color: rgba(255,255,255,0.85); font-size: 20px; cursor: pointer; }
+    .app-body { flex: 1; overflow-y: auto; padding: 0; }
+    .app-body::-webkit-scrollbar { width: 0; }
+    /* Filter screen */
+    .filter-section { background: #fff; margin: 10px 12px 0; border-radius: 14px; padding: 14px 16px; }
+    .filter-label { font-size: 12px; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+    .filter-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+    .chip { padding: 6px 14px; border-radius: 20px; background: #f0f0f0; font-size: 13px; font-weight: 600; color: #444; cursor: pointer; transition: all .15s; border: 2px solid transparent; }
+    .chip.active { background: #fdecea; color: #E53935; border-color: #E53935; }
+    .filter-range-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+    .filter-range-row input[type=range] { flex: 1; accent-color: #E53935; }
+    .filter-range-val { font-size: 12px; color: #E53935; font-weight: 700; min-width: 60px; text-align: right; }
+    .apply-btn { display: block; background: #E53935; color: #fff; font-size: 16px; font-weight: 700; border: none; border-radius: 14px; padding: 14px; margin: 14px 12px 10px; width: calc(100% - 24px); cursor: pointer; transition: background .15s; }
+    .apply-btn:hover { background: #c62828; }
+    /* Liked cars */
+    .liked-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #bbb; font-size: 15px; gap: 12px; padding: 40px 20px; text-align: center; }
+    .liked-empty-icon { font-size: 48px; }
+    .liked-car-item { display: flex; align-items: center; gap: 12px; background: #fff; margin: 10px 12px 0; border-radius: 14px; padding: 12px; cursor: pointer; transition: box-shadow .15s; }
+    .liked-car-item:last-child { margin-bottom: 10px; }
+    .liked-car-thumb { width: 70px; height: 54px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
+    .liked-car-info { flex: 1; min-width: 0; }
+    .liked-car-name { font-size: 13px; font-weight: 700; color: #111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .liked-car-price { font-size: 14px; font-weight: 900; color: #E53935; margin: 2px 0; }
+    .liked-car-meta { font-size: 11px; color: #999; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .liked-car-badge { font-size: 11px; color: #fff; background: #E53935; border-radius: 8px; padding: 2px 8px; margin-top: 3px; display: inline-block; font-weight: 600; }
+    /* Messages */
+    .msg-item { display: flex; align-items: center; gap: 12px; background: #fff; margin: 10px 12px 0; border-radius: 14px; padding: 14px; cursor: pointer; }
+    .msg-item:last-child { margin-bottom: 10px; }
+    .msg-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; flex-shrink: 0; background: #eee; }
+    .msg-info { flex: 1; min-width: 0; }
+    .msg-name { font-size: 14px; font-weight: 700; color: #111; }
+    .msg-preview { font-size: 12px; color: #888; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .msg-time { font-size: 11px; color: #bbb; flex-shrink: 0; }
+    .msg-unread-dot { width: 10px; height: 10px; background: #E53935; border-radius: 50%; flex-shrink: 0; }
+    /* Profile */
+    .profile-hero { background: linear-gradient(160deg, #E53935 0%, #b71c1c 100%); padding: 20px 20px 28px; display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .profile-avatar-ring { width: 80px; height: 80px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.7); overflow: hidden; margin-bottom: 10px; background: #fff; }
+    .profile-avatar-img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-name { color: #fff; font-size: 18px; font-weight: 700; }
+    .profile-sub { color: rgba(255,255,255,0.75); font-size: 12px; margin-top: 2px; }
+    .profile-stats { display: flex; gap: 0; width: 100%; background: #fff; margin: 0 12px; border-radius: 14px; overflow: hidden; }
+    .profile-stat { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 12px 0; border-right: 1px solid #f0f0f0; }
+    .profile-stat:last-child { border-right: none; }
+    .profile-stat-num { font-size: 18px; font-weight: 900; color: #E53935; }
+    .profile-stat-lbl { font-size: 10px; color: #999; font-weight: 600; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .profile-menu { background: #fff; margin: 10px 12px 0; border-radius: 14px; overflow: hidden; }
+    .profile-menu-item { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-bottom: 1px solid #f5f5f5; cursor: pointer; transition: background .1s; }
+    .profile-menu-item:last-child { border-bottom: none; }
+    .profile-menu-item:hover { background: #fff8f8; }
+    .profile-menu-icon { font-size: 20px; width: 28px; text-align: center; flex-shrink: 0; }
+    .profile-menu-text { flex: 1; font-size: 14px; font-weight: 600; color: #222; }
+    .profile-menu-arrow { font-size: 14px; color: #ccc; }
+    .profile-version { text-align: center; color: #ccc; font-size: 11px; padding: 14px; }
+
     /* MOBILE BOTTOM NAV */
     .mobile-nav {
       display: none; position: fixed; bottom: 0; left: 0; right: 0;
@@ -134,10 +194,10 @@
   <div class="logo">CarSwipe</div>
   <div class="sidebar-section">Uygulama</div>
   <a class="nav-item active" onclick="showView('kesfet', this)"><div class="nav-icon">🔍</div>Keşfet</a>
-  <a class="nav-item" onclick="showView('kesfet', this)"><div class="nav-icon">≡</div>Filtrele</a>
-  <a class="nav-item" onclick="showView('kesfet', this)"><div class="nav-icon">♡</div>Beğeniler</a>
-  <a class="nav-item" onclick="showView('kesfet', this)"><div class="nav-icon">💬</div>Mesajlar</a>
-  <a class="nav-item" onclick="showView('kesfet', this)"><div class="nav-icon">👤</div>Profil</a>
+  <a class="nav-item" onclick="showView('filtrele', this)"><div class="nav-icon">≡</div>Filtrele</a>
+  <a class="nav-item" onclick="showView('begeniler', this)"><div class="nav-icon">♡</div>Beğeniler</a>
+  <a class="nav-item" onclick="showView('mesajlar', this)"><div class="nav-icon">💬</div>Mesajlar</a>
+  <a class="nav-item" onclick="showView('profil', this)"><div class="nav-icon">👤</div>Profil</a>
   <div class="sidebar-section">Bilgi</div>
   <a class="nav-item" onclick="showView('nasil', this)"><div class="nav-icon">▶</div>Nasıl Çalışır</a>
   <a class="nav-item" onclick="showView('hakkinda', this)"><div class="nav-icon">ℹ</div>Hakkında</a>
@@ -244,6 +304,208 @@
     </div>
   </div>
 
+  <!-- FİLTRELE -->
+  <div class="view" id="view-filtrele">
+    <div class="app-screen">
+      <div class="app-notch"><div class="app-notch-bar"></div></div>
+      <div class="app-header">
+        <div class="app-header-title">Filtrele</div>
+      </div>
+      <div class="app-body">
+        <div class="filter-section">
+          <div class="filter-label">Kategori</div>
+          <div class="filter-chips">
+            <div class="chip active" onclick="toggleChip(this)">Otomobil</div>
+            <div class="chip" onclick="toggleChip(this)">SUV</div>
+            <div class="chip" onclick="toggleChip(this)">Minivan</div>
+            <div class="chip" onclick="toggleChip(this)">Elektrikli</div>
+            <div class="chip" onclick="toggleChip(this)">Klasik</div>
+            <div class="chip" onclick="toggleChip(this)">Ticari</div>
+          </div>
+        </div>
+        <div class="filter-section" style="margin-top:8px;">
+          <div class="filter-label">Marka</div>
+          <div class="filter-chips">
+            <div class="chip" onclick="toggleChip(this)">Toyota</div>
+            <div class="chip" onclick="toggleChip(this)">Volkswagen</div>
+            <div class="chip" onclick="toggleChip(this)">BMW</div>
+            <div class="chip" onclick="toggleChip(this)">Mercedes</div>
+            <div class="chip" onclick="toggleChip(this)">Honda</div>
+            <div class="chip" onclick="toggleChip(this)">Audi</div>
+            <div class="chip" onclick="toggleChip(this)">Ford</div>
+            <div class="chip" onclick="toggleChip(this)">Renault</div>
+          </div>
+        </div>
+        <div class="filter-section" style="margin-top:8px;">
+          <div class="filter-label">Fiyat Aralığı</div>
+          <div class="filter-range-row">
+            <input type="range" min="300" max="5000" value="2000" step="50" oninput="document.getElementById('fiyat-val').textContent=this.value+' bin ₺'">
+            <div class="filter-range-val" id="fiyat-val">2000 bin ₺</div>
+          </div>
+        </div>
+        <div class="filter-section" style="margin-top:8px;">
+          <div class="filter-label">Kilometre (maks.)</div>
+          <div class="filter-range-row">
+            <input type="range" min="0" max="300" value="100" step="5" oninput="document.getElementById('km-val').textContent=this.value+'k km'">
+            <div class="filter-range-val" id="km-val">100k km</div>
+          </div>
+        </div>
+        <div class="filter-section" style="margin-top:8px;">
+          <div class="filter-label">Vites</div>
+          <div class="filter-chips">
+            <div class="chip active" onclick="toggleChip(this)">Tümü</div>
+            <div class="chip" onclick="toggleChip(this)">Otomatik</div>
+            <div class="chip" onclick="toggleChip(this)">Manuel</div>
+          </div>
+        </div>
+        <div class="filter-section" style="margin-top:8px;">
+          <div class="filter-label">Yakıt Tipi</div>
+          <div class="filter-chips">
+            <div class="chip active" onclick="toggleChip(this)">Tümü</div>
+            <div class="chip" onclick="toggleChip(this)">Benzin</div>
+            <div class="chip" onclick="toggleChip(this)">Dizel</div>
+            <div class="chip" onclick="toggleChip(this)">Hibrit</div>
+            <div class="chip" onclick="toggleChip(this)">Elektrik</div>
+            <div class="chip" onclick="toggleChip(this)">LPG</div>
+          </div>
+        </div>
+        <button class="apply-btn" onclick="applyFilter()">Filtre Uygula</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEĞENİLER -->
+  <div class="view" id="view-begeniler">
+    <div class="app-screen">
+      <div class="app-notch"><div class="app-notch-bar"></div></div>
+      <div class="app-header">
+        <div class="app-header-title">Beğeniler</div>
+      </div>
+      <div class="app-body" id="begeniler-body">
+        <div class="liked-empty">
+          <div class="liked-empty-icon">♡</div>
+          <div>Henüz beğenilen araç yok.<br>Keşfet'e gidip sağa kaydır!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MESAJLAR -->
+  <div class="view" id="view-mesajlar">
+    <div class="app-screen">
+      <div class="app-notch"><div class="app-notch-bar"></div></div>
+      <div class="app-header">
+        <div class="app-header-title">Mesajlar</div>
+      </div>
+      <div class="app-body">
+        <div class="msg-item">
+          <img class="msg-avatar" src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=100&q=80" alt="">
+          <div class="msg-info">
+            <div class="msg-name">Toyota Corolla 2022</div>
+            <div class="msg-preview">Merhaba, araç hâlâ satışta mı?</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;">
+            <div class="msg-time">14:32</div>
+            <div class="msg-unread-dot"></div>
+          </div>
+        </div>
+        <div class="msg-item">
+          <img class="msg-avatar" src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=100&q=80" alt="">
+          <div class="msg-info">
+            <div class="msg-name">BMW 3 Serisi 2021</div>
+            <div class="msg-preview">Fiyatta pazarlık mümkün mü?</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;">
+            <div class="msg-time">Dün</div>
+          </div>
+        </div>
+        <div class="msg-item">
+          <img class="msg-avatar" src="https://images.unsplash.com/photo-1542362567-b07e54358753?w=100&q=80" alt="">
+          <div class="msg-info">
+            <div class="msg-name">Audi A4 2022</div>
+            <div class="msg-preview">Araç İstanbul'da mı?</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;">
+            <div class="msg-time">Pazartesi</div>
+          </div>
+        </div>
+        <div class="msg-item">
+          <img class="msg-avatar" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=100&q=80" alt="">
+          <div class="msg-info">
+            <div class="msg-name">Porsche Cayenne 2019</div>
+            <div class="msg-preview">Test sürüşü yapabilir miyim?</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;">
+            <div class="msg-time">Pazar</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFİL -->
+  <div class="view" id="view-profil">
+    <div class="app-screen">
+      <div class="app-notch"><div class="app-notch-bar"></div></div>
+      <div class="app-body" style="overflow-y:auto;">
+        <div class="profile-hero">
+          <div class="profile-avatar-ring">
+            <img class="profile-avatar-img" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&q=80" alt="">
+          </div>
+          <div class="profile-name">Ercan Karagülmez</div>
+          <div class="profile-sub">İstanbul · Üye: Ağustos 2024</div>
+        </div>
+        <div class="profile-stats" style="margin:12px;">
+          <div class="profile-stat">
+            <div class="profile-stat-num" id="stat-liked">0</div>
+            <div class="profile-stat-lbl">Beğeni</div>
+          </div>
+          <div class="profile-stat">
+            <div class="profile-stat-num">4</div>
+            <div class="profile-stat-lbl">Mesaj</div>
+          </div>
+          <div class="profile-stat">
+            <div class="profile-stat-num">12</div>
+            <div class="profile-stat-lbl">İnceleme</div>
+          </div>
+        </div>
+        <div class="profile-menu">
+          <div class="profile-menu-item">
+            <div class="profile-menu-icon">👤</div>
+            <div class="profile-menu-text">Hesap Bilgileri</div>
+            <div class="profile-menu-arrow">›</div>
+          </div>
+          <div class="profile-menu-item">
+            <div class="profile-menu-icon">🔔</div>
+            <div class="profile-menu-text">Bildirimler</div>
+            <div class="profile-menu-arrow">›</div>
+          </div>
+          <div class="profile-menu-item">
+            <div class="profile-menu-icon">🔒</div>
+            <div class="profile-menu-text">Gizlilik & Güvenlik</div>
+            <div class="profile-menu-arrow">›</div>
+          </div>
+          <div class="profile-menu-item">
+            <div class="profile-menu-icon">❓</div>
+            <div class="profile-menu-text">Yardım & Destek</div>
+            <div class="profile-menu-arrow">›</div>
+          </div>
+          <div class="profile-menu-item">
+            <div class="profile-menu-icon">⭐</div>
+            <div class="profile-menu-text">Uygulamayı Değerlendir</div>
+            <div class="profile-menu-arrow">›</div>
+          </div>
+          <div class="profile-menu-item" style="color:#E53935;">
+            <div class="profile-menu-icon">🚪</div>
+            <div class="profile-menu-text" style="color:#E53935;">Çıkış Yap</div>
+            <div class="profile-menu-arrow" style="color:#E53935;">›</div>
+          </div>
+        </div>
+        <div class="profile-version">CarSwipe v1.0.0</div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- MOBILE BOTTOM NAV -->
@@ -278,6 +540,7 @@ const cars = [
 ];
 let idx = 0;
 let history = [];
+let liked = [];
 
 function loadCard(i, transition) {
   idx = ((i % cars.length) + cars.length) % cars.length;
@@ -300,6 +563,8 @@ function loadCard(i, transition) {
 
 function animateLike() {
   history.push(idx);
+  if (!liked.includes(idx)) liked.push(idx);
+  renderBegeniler();
   const lbl = document.getElementById('label-like');
   lbl.style.opacity = '1';
   setTimeout(() => { lbl.style.opacity = '0'; loadCard(idx + 1, true); }, 500);
@@ -391,10 +656,48 @@ function showView(id, el) {
   const mnavId = 'mnav-' + id;
   const mnav = document.getElementById(mnavId);
   if (mnav) mnav.classList.add('active');
+  // Refresh data screens
+  if (id === 'begeniler') renderBegeniler();
+  if (id === 'profil') { const s = document.getElementById('stat-liked'); if(s) s.textContent = liked.length; }
 }
 
 function toggleFaq(el) {
   el.parentElement.classList.toggle('open');
+}
+
+function toggleChip(el) {
+  el.classList.toggle('active');
+}
+
+function applyFilter() {
+  // Filtreleri uygula ve keşfete dön
+  const kesfetEl = document.querySelector('.nav-item');
+  showView('kesfet', kesfetEl);
+  // Sidebar'da Keşfet'i aktif yap
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  kesfetEl.classList.add('active');
+}
+
+function renderBegeniler() {
+  const body = document.getElementById('begeniler-body');
+  const stat = document.getElementById('stat-liked');
+  if (stat) stat.textContent = liked.length;
+  if (liked.length === 0) {
+    body.innerHTML = '<div class="liked-empty"><div class="liked-empty-icon">♡</div><div>Henüz beğenilen araç yok.<br>Keşfet\'e gidip sağa kaydır!</div></div>';
+    return;
+  }
+  body.innerHTML = liked.map(i => {
+    const c = cars[i];
+    return `<div class="liked-car-item">
+      <img class="liked-car-thumb" src="https://images.unsplash.com/${c.img}?w=200&q=80" alt="">
+      <div class="liked-car-info">
+        <div class="liked-car-name">${c.name}</div>
+        <div class="liked-car-price">${c.price}</div>
+        <div class="liked-car-meta">${c.meta}</div>
+        <div class="liked-car-badge">${c.seller}</div>
+      </div>
+    </div>`;
+  }).join('');
 }
 </script>
 </body>
