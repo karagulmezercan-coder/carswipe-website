@@ -100,6 +100,36 @@
     .detail-msg-btn { display: block; background: #E53935; color: #fff; font-size: 16px; font-weight: 700; border: none; border-radius: 14px; padding: 14px; width: 100%; cursor: pointer; margin-bottom: 10px; }
     .detail-like-btn { display: block; background: #fff; color: #E91E8C; font-size: 15px; font-weight: 700; border: 2px solid #E91E8C; border-radius: 14px; padding: 12px; width: 100%; cursor: pointer; }
 
+    /* DETAIL HEADER */
+    .detail-header { padding: 12px 14px 10px; background: #fff; border-bottom: 1px solid #f0f0f0; }
+    .detail-header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+    .detail-car-name { font-size: 17px; font-weight: 900; color: #111; flex: 1; }
+    .detail-tags { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+    .detail-tag { font-size: 10px; font-weight: 700; border-radius: 20px; padding: 3px 10px; }
+    .tag-hasar { background: #e8f5e9; color: #2e7d32; }
+    .tag-seller { background: #f3e5f5; color: #6a1b9a; }
+    .detail-price-line { font-size: 22px; font-weight: 900; color: #E53935; margin: 6px 0 2px; }
+    .detail-loc-line { font-size: 12px; color: #888; }
+    /* DETAIL TABS */
+    .detail-tabs { display: flex; background: #fff; border-bottom: 1px solid #eee; }
+    .detail-tab { flex: 1; text-align: center; padding: 10px 4px; font-size: 12px; font-weight: 700; color: #999; cursor: pointer; border-bottom: 2px solid transparent; transition: all .15s; }
+    .detail-tab.active { color: #E53935; border-bottom-color: #E53935; }
+    /* DETAIL SPEC ROWS */
+    .detail-rows { background: #fff; }
+    .detail-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid #f5f5f5; }
+    .detail-row:nth-child(even) { background: #fafafa; }
+    .detail-row-lbl { font-size: 13px; color: #555; font-weight: 500; }
+    .detail-row-val { font-size: 13px; font-weight: 700; color: #E53935; }
+    /* DETAIL ACTION BUTTONS */
+    .detail-actions { display: flex; justify-content: space-around; align-items: center; padding: 12px 8px; background: #fff; border-top: 1px solid #eee; flex-shrink: 0; }
+    .detail-act-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
+    .detail-act-circle { width: 48px; height: 48px; border-radius: 50%; border: 2px solid; display: flex; align-items: center; justify-content: center; font-size: 20px; transition: transform .15s; }
+    .detail-act-circle:hover { transform: scale(1.1); }
+    .detail-act-lbl { font-size: 10px; font-weight: 700; }
+    .dac-green { border-color: #43A047; color: #43A047; }
+    .dac-red { border-color: #E53935; color: #E53935; }
+    .dac-pink { border-color: #E91E8C; color: #E91E8C; }
+
     /* FULLSCREEN GALLERY OVERLAY */
     .gallery-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #000; z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; }
     .gallery-overlay.open { display: flex; }
@@ -372,24 +402,71 @@
         </div>
         <button class="fullscreen-btn" onclick="openGallery()">⤢ Büyük Fotoğraf</button>
         <div class="thumb-strip" id="detail-thumbs"></div>
-        <div class="detail-content">
-          <div class="detail-title" id="detail-name"></div>
-          <div class="detail-price-big" id="detail-price"></div>
-          <div class="detail-specs">
-            <div class="detail-spec"><div class="detail-spec-lbl">Kilometre</div><div class="detail-spec-val" id="detail-km"></div></div>
-            <div class="detail-spec"><div class="detail-spec-lbl">Yakıt</div><div class="detail-spec-val" id="detail-fuel"></div></div>
-            <div class="detail-spec"><div class="detail-spec-lbl">Vites</div><div class="detail-spec-val" id="detail-gear"></div></div>
-            <div class="detail-spec"><div class="detail-spec-lbl">Renk</div><div class="detail-spec-val" id="detail-color"></div></div>
-          </div>
-          <div class="detail-seller-box">
-            <div class="detail-seller-avatar">🏪</div>
-            <div>
-              <div class="detail-seller-name" id="detail-seller"></div>
-              <div class="detail-seller-sub" id="detail-location"></div>
+        <!-- HEADER -->
+        <div class="detail-header">
+          <div class="detail-header-top">
+            <div class="detail-car-name" id="detail-name"></div>
+            <div class="detail-tags">
+              <span class="detail-tag tag-hasar" id="detail-tag-hasar">Hasarsız</span>
+              <span class="detail-tag tag-seller" id="detail-tag-seller">Sahibinden</span>
             </div>
           </div>
-          <button class="detail-msg-btn" onclick="goMessagesFromDetail()">💬 Mesaj Gönder</button>
-          <button class="detail-like-btn" onclick="likeFromDetail()">♥ Beğen</button>
+          <div class="detail-price-line" id="detail-price"></div>
+          <div class="detail-loc-line" id="detail-location"></div>
+        </div>
+        <!-- TABS -->
+        <div class="detail-tabs">
+          <div class="detail-tab active" onclick="switchTab(this,'tab-specs')">Araç Özellikleri</div>
+          <div class="detail-tab" onclick="switchTab(this,'tab-desc')">Açıklama</div>
+          <div class="detail-tab" onclick="switchTab(this,'tab-map')">Konumu</div>
+        </div>
+        <!-- TAB: Araç Özellikleri -->
+        <div id="tab-specs" class="detail-rows">
+          <div class="detail-row"><span class="detail-row-lbl">İlan No</span><span class="detail-row-val" id="detail-ilan-no"></span></div>
+          <div class="detail-row"><span class="detail-row-lbl">İlan Tarihi</span><span class="detail-row-val" id="detail-ilan-date"></span></div>
+          <div class="detail-row"><span class="detail-row-lbl">Marka</span><span class="detail-row-val" id="detail-brand"></span></div>
+          <div class="detail-row"><span class="detail-row-lbl">Model</span><span class="detail-row-val" id="detail-model"></span></div>
+          <div class="detail-row"><span class="detail-row-lbl">Yıl</span><span class="detail-row-val" id="detail-year"></span></div>
+          <div class="detail-row"><span class="detail-row-lbl">Yakıt / Motor Tipi</span><span class="detail-row-val" id="detail-fuel"></span></div>
+          <div class="detail-row"><span class="detail-row-lbl">Vites</span><span class="detail-row-val" id="detail-gear"></span></div>
+          <div class="detail-row"><span class="detail-row-lbl">Araç Durumu</span><span class="detail-row-val" id="detail-durum"></span></div>
+          <div class="detail-row"><span class="detail-row-lbl">KM</span><span class="detail-row-val" id="detail-km"></span></div>
+          <div class="detail-row"><span class="detail-row-lbl">Kasa Tipi</span><span class="detail-row-val" id="detail-kasa"></span></div>
+          <div class="detail-row"><span class="detail-row-lbl">Motor Gücü</span><span class="detail-row-val" id="detail-motor"></span></div>
+          <div class="detail-row"><span class="detail-row-lbl">Motor Hacmi</span><span class="detail-row-val" id="detail-hacim"></span></div>
+          <div class="detail-row"><span class="detail-row-lbl">Renk</span><span class="detail-row-val" id="detail-color"></span></div>
+          <div class="detail-row"><span class="detail-row-lbl">Hasar Durumu</span><span class="detail-row-val" id="detail-hasar"></span></div>
+          <div class="detail-row"><span class="detail-row-lbl">Kimden</span><span class="detail-row-val" id="detail-seller"></span></div>
+          <div class="detail-row"><span class="detail-row-lbl">Konum</span><span class="detail-row-val" id="detail-loc2"></span></div>
+        </div>
+        <!-- TAB: Açıklama -->
+        <div id="tab-desc" class="detail-rows" style="display:none; padding:14px; font-size:13px; color:#555; line-height:1.7;">
+          Araç bakımlı ve hasarsızdır. Tüm muayeneleri yapılmış olup eksiksiZ teslim edilecektir. Takas ve kredi işlemleri yapılmaktadır. Detaylı bilgi için arayınız.
+        </div>
+        <!-- TAB: Konum -->
+        <div id="tab-map" class="detail-rows" style="display:none; padding:14px; font-size:13px; color:#555;">
+          <div style="background:#e8f5e9;border-radius:10px;padding:12px;text-align:center;">
+            📍 <span id="detail-loc3"></span>
+          </div>
+        </div>
+      </div>
+      <!-- BOTTOM ACTIONS -->
+      <div class="detail-actions">
+        <div class="detail-act-btn" onclick="goMessagesFromDetail()">
+          <div class="detail-act-circle dac-green">💬</div>
+          <div class="detail-act-lbl" style="color:#43A047;">Mesaj</div>
+        </div>
+        <div class="detail-act-btn" onclick="goBack()">
+          <div class="detail-act-circle dac-red">✕</div>
+          <div class="detail-act-lbl" style="color:#E53935;">Geç</div>
+        </div>
+        <div class="detail-act-btn" onclick="likeFromDetail()">
+          <div class="detail-act-circle dac-pink">♥</div>
+          <div class="detail-act-lbl" style="color:#E91E8C;">Beğen</div>
+        </div>
+        <div class="detail-act-btn">
+          <div class="detail-act-circle dac-red">📞</div>
+          <div class="detail-act-lbl" style="color:#E53935;">Ara</div>
         </div>
       </div>
     </div>
@@ -633,17 +710,17 @@
 
 <script>
 const cars = [
-  { name:'Toyota Corolla', year:'2022', price:'895.000 ₺', meta:'📍 İstanbul · Kadıköy · 22.000 km', seller:'Sahibinden', km:'22.000 km', fuel:'Benzin', gear:'Otomatik', color:'Beyaz',
+  { name:'Toyota Corolla', brand:'Toyota', model:'Corolla', year:'2022', price:'895.000 ₺', location:'İstanbul / Kadıköy', meta:'📍 İstanbul · Kadıköy · 22.000 km', seller:'Sahibinden', km:'22.000 km', fuel:'Benzin', gear:'Otomatik', color:'Beyaz', kasa:'Sedan', motor:'132 hp', hacim:'1600 cc', hasar:'Hasarsız', durum:'İkinci El', ilanNo:'100000001',
     photos:['photo-1621007947382-bb3c3994e3fb','photo-1559416523-140ddc3d238c','photo-1568605117036-5fe5e7bab0b7','photo-1492144534655-ae79c964c9d7','photo-1520031441872-265e4ff70366','photo-1474512879090-37a57c5e8f1f'] },
-  { name:'Volkswagen Golf', year:'2022', price:'985.000 ₺', meta:'📍 Bursa · Nilüfer · 52.000 km', seller:'Sahibinden', km:'52.000 km', fuel:'Dizel', gear:'Otomatik', color:'Gri',
+  { name:'Volkswagen Golf', brand:'Volkswagen', model:'Golf', year:'2022', price:'985.000 ₺', location:'Bursa / Nilüfer', meta:'📍 Bursa · Nilüfer · 52.000 km', seller:'Sahibinden', km:'52.000 km', fuel:'Dizel', gear:'Otomatik', color:'Gri', kasa:'Hatchback', motor:'150 hp', hacim:'2000 cc', hasar:'Hasarsız', durum:'İkinci El', ilanNo:'100000002',
     photos:['photo-1533473359331-0135ef1b58bf','photo-1492144534655-ae79c964c9d7','photo-1520031441872-265e4ff70366','photo-1568605117036-5fe5e7bab0b7','photo-1559416523-140ddc3d238c','photo-1449965408869-eaa3f722e40d'] },
-  { name:'BMW 3 Serisi', year:'2021', price:'1.450.000 ₺', meta:'📍 İstanbul · Kadıköy · 38.000 km', seller:'Galeriden', km:'38.000 km', fuel:'Benzin', gear:'Otomatik', color:'Siyah',
+  { name:'BMW 3 Serisi', brand:'BMW', model:'3 Serisi', year:'2021', price:'1.450.000 ₺', location:'İstanbul / Kadıköy', meta:'📍 İstanbul · Kadıköy · 38.000 km', seller:'Galeriden', km:'38.000 km', fuel:'Benzin', gear:'Otomatik', color:'Siyah', kasa:'Sedan', motor:'184 hp', hacim:'2000 cc', hasar:'Hasarsız', durum:'İkinci El', ilanNo:'100000003',
     photos:['photo-1555215695-3004980ad54e','photo-1617469767053-d3b523a0b982','photo-1526726538690-5cbf90d6db31','photo-1552519507-da3b142c6e3d','photo-1542362567-b07e54358753','photo-1580274437636-8a0f4d91c99f'] },
-  { name:'Honda Civic', year:'2020', price:'725.000 ₺', meta:'📍 İzmir · Bornova · 67.000 km', seller:'Sahibinden', km:'67.000 km', fuel:'Benzin', gear:'Manuel', color:'Kırmızı',
+  { name:'Honda Civic', brand:'Honda', model:'Civic', year:'2020', price:'725.000 ₺', location:'İzmir / Bornova', meta:'📍 İzmir · Bornova · 67.000 km', seller:'Sahibinden', km:'67.000 km', fuel:'Benzin', gear:'Manuel', color:'Kırmızı', kasa:'Sedan', motor:'126 hp', hacim:'1500 cc', hasar:'Hasarsız', durum:'İkinci El', ilanNo:'100000004',
     photos:['photo-1494976388531-d1058494cdd8','photo-1519641471654-76ce0107ad5b','photo-1474512879090-37a57c5e8f1f','photo-1621007947382-bb3c3994e3fb','photo-1533473359331-0135ef1b58bf','photo-1485291571150-772bcfc10da5'] },
-  { name:'Audi A4', year:'2022', price:'1.850.000 ₺', meta:'📍 İstanbul · Beşiktaş · 22.000 km', seller:'Galeriden', km:'22.000 km', fuel:'Benzin', gear:'Otomatik', color:'Mavi',
+  { name:'Audi A4', brand:'Audi', model:'A4', year:'2022', price:'1.850.000 ₺', location:'İstanbul / Beşiktaş', meta:'📍 İstanbul · Beşiktaş · 22.000 km', seller:'Galeriden', km:'22.000 km', fuel:'Benzin', gear:'Otomatik', color:'Mavi', kasa:'Sedan', motor:'150 hp', hacim:'2000 cc', hasar:'Hasarsız', durum:'İkinci El', ilanNo:'100000005',
     photos:['photo-1542362567-b07e54358753','photo-1552519507-da3b142c6e3d','photo-1449965408869-eaa3f722e40d','photo-1555215695-3004980ad54e','photo-1526726538690-5cbf90d6db31','photo-1617469767053-d3b523a0b982'] },
-  { name:'Porsche Cayenne', year:'2019', price:'3.200.000 ₺', meta:'📍 İstanbul · Sarıyer · 45.000 km', seller:'Galeriden', km:'45.000 km', fuel:'Benzin', gear:'Otomatik', color:'Gümüş',
+  { name:'Porsche Cayenne', brand:'Porsche', model:'Cayenne', year:'2019', price:'3.200.000 ₺', location:'İstanbul / Sarıyer', meta:'📍 İstanbul · Sarıyer · 45.000 km', seller:'Galeriden', km:'45.000 km', fuel:'Benzin', gear:'Otomatik', color:'Gümüş', kasa:'SUV', motor:'340 hp', hacim:'3000 cc', hasar:'Hasarsız', durum:'İkinci El', ilanNo:'100000006',
     photos:['photo-1503376780353-7e6692767b70','photo-1485291571150-772bcfc10da5','photo-1580274437636-8a0f4d91c99f','photo-1519641471654-76ce0107ad5b','photo-1503376780353-7e6692767b70','photo-1492144534655-ae79c964c9d7'] },
 ];
 let idx = 0;
@@ -707,17 +784,45 @@ function openDetail() {
   document.getElementById('detail-img').src = `https://images.unsplash.com/${c.photos[0]}?w=700&q=80`;
   document.getElementById('detail-name').textContent = c.name + ' ' + c.year;
   document.getElementById('detail-price').textContent = c.price;
-  document.getElementById('detail-km').textContent = c.km;
+  document.getElementById('detail-location').textContent = c.location;
+  document.getElementById('detail-tag-hasar').textContent = c.hasar;
+  document.getElementById('detail-tag-seller').textContent = c.seller;
+  document.getElementById('detail-ilan-no').textContent = c.ilanNo;
+  const now = new Date(); const months = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+  document.getElementById('detail-ilan-date').textContent = now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+  document.getElementById('detail-brand').textContent = c.brand;
+  document.getElementById('detail-model').textContent = c.model;
+  document.getElementById('detail-year').textContent = c.year;
   document.getElementById('detail-fuel').textContent = c.fuel;
   document.getElementById('detail-gear').textContent = c.gear;
+  document.getElementById('detail-durum').textContent = c.durum;
+  document.getElementById('detail-km').textContent = c.km;
+  document.getElementById('detail-kasa').textContent = c.kasa;
+  document.getElementById('detail-motor').textContent = c.motor;
+  document.getElementById('detail-hacim').textContent = c.hacim;
   document.getElementById('detail-color').textContent = c.color;
+  document.getElementById('detail-hasar').textContent = c.hasar;
   document.getElementById('detail-seller').textContent = c.seller;
-  document.getElementById('detail-location').textContent = c.meta.replace('📍 ','');
+  document.getElementById('detail-loc2').textContent = c.location;
+  document.getElementById('detail-loc3').textContent = c.location;
+  // Reset tabs
+  document.querySelectorAll('.detail-tab').forEach((t,i) => t.classList.toggle('active', i===0));
+  document.getElementById('tab-specs').style.display = '';
+  document.getElementById('tab-desc').style.display = 'none';
+  document.getElementById('tab-map').style.display = 'none';
   updateDetailPhotoCount();
   renderDetailThumbs();
   const el = document.querySelector('.nav-item');
   showView('detail', el);
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+}
+
+function switchTab(el, tabId) {
+  document.querySelectorAll('.detail-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  ['tab-specs','tab-desc','tab-map'].forEach(id => {
+    document.getElementById(id).style.display = id === tabId ? '' : 'none';
+  });
 }
 
 function updateDetailPhotoCount() {
