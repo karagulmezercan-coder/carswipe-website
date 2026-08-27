@@ -39,7 +39,7 @@
     .phone-notch-bar { width: 80px; height: 5px; background: #555; border-radius: 3px; }
 
     /* CARD */
-    .card-area { flex: 1; position: relative; overflow: hidden; background: #111; touch-action: none; }
+    .card-area { flex: 1; position: relative; overflow: hidden; background: #111; touch-action: none; user-select: none; -webkit-user-select: none; }
     .card-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .08s, opacity .3s; pointer-events: none; }
     .card-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent 30%, rgba(0,0,0,0.72) 100%); padding: 40px 18px 16px; color: #fff; pointer-events: none; }
     .card-name { font-size: 20px; font-weight: 900; line-height: 1.15; margin-bottom: 4px; }
@@ -623,7 +623,7 @@ cardArea.addEventListener('touchend', e => {
 });
 
 // Mouse swipe (desktop)
-cardArea.addEventListener('mousedown', e => { startX = e.clientX; dragging = true; });
+cardArea.addEventListener('mousedown', e => { e.preventDefault(); startX = e.clientX; dragging = true; });
 cardArea.addEventListener('mousemove', e => {
   if (!dragging) return;
   const dx = e.clientX - startX;
