@@ -73,7 +73,17 @@
     /* DETAIL VIEW */
     .detail-body { flex: 1; overflow-y: auto; background: #f5f5f5; }
     .detail-body::-webkit-scrollbar { width: 0; }
-    .detail-photo { width: 100%; height: 220px; object-fit: cover; display: block; }
+    .detail-photo-wrap { position: relative; background: #000; flex-shrink: 0; }
+    .detail-photo { width: 100%; height: 200px; object-fit: cover; display: block; transition: opacity .2s; }
+    .detail-pnav { position: absolute; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.85); border: none; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; color: #333; z-index: 5; }
+    .detail-pnav-l { left: 8px; }
+    .detail-pnav-r { right: 8px; }
+    .detail-photo-count { position: absolute; bottom: 8px; right: 10px; background: rgba(0,0,0,0.55); color: #fff; font-size: 11px; font-weight: 700; border-radius: 10px; padding: 2px 8px; }
+    .fullscreen-btn { display: flex; align-items: center; justify-content: center; gap: 6px; background: #fff; border: none; border-bottom: 1px solid #eee; padding: 10px; width: 100%; font-size: 13px; font-weight: 700; color: #444; cursor: pointer; }
+    .fullscreen-btn:hover { background: #fafafa; }
+    .thumb-strip { display: flex; flex-wrap: wrap; gap: 3px; padding: 8px; background: #fff; border-bottom: 1px solid #eee; }
+    .thumb-img { width: calc(20% - 3px); aspect-ratio: 1; object-fit: cover; border-radius: 6px; cursor: pointer; border: 2px solid transparent; transition: border-color .15s; }
+    .thumb-img.active { border-color: #43A047; }
     .detail-back-btn { position: absolute; top: 42px; left: 14px; width: 32px; height: 32px; border-radius: 50%; background: rgba(0,0,0,0.45); border: none; cursor: pointer; color: #fff; font-size: 18px; display: flex; align-items: center; justify-content: center; z-index: 10; }
     .detail-content { padding: 16px; }
     .detail-title { font-size: 20px; font-weight: 900; color: #111; }
@@ -88,6 +98,17 @@
     .detail-seller-sub { font-size: 12px; color: #999; margin-top: 2px; }
     .detail-msg-btn { display: block; background: #E53935; color: #fff; font-size: 16px; font-weight: 700; border: none; border-radius: 14px; padding: 14px; width: 100%; cursor: pointer; margin-bottom: 10px; }
     .detail-like-btn { display: block; background: #fff; color: #E91E8C; font-size: 15px; font-weight: 700; border: 2px solid #E91E8C; border-radius: 14px; padding: 12px; width: 100%; cursor: pointer; }
+
+    /* FULLSCREEN GALLERY OVERLAY */
+    .gallery-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #000; z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; }
+    .gallery-overlay.open { display: flex; }
+    .gallery-close { position: absolute; top: 16px; right: 16px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.15); border: none; color: #fff; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; }
+    .gallery-counter { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 700; z-index: 10; }
+    .gallery-img-wrap { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .gallery-img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; transition: opacity .2s; }
+    .gallery-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.15); border: none; color: #fff; font-size: 32px; width: 44px; height: 60px; cursor: pointer; display: flex; align-items: center; justify-content: center; border-radius: 8px; z-index: 10; }
+    .gallery-nav-l { left: 10px; }
+    .gallery-nav-r { right: 10px; }
 
     /* BOTTOM BUTTONS */
     .phone-bottom { background: #fff; padding: 12px 0 10px; flex-shrink: 0; }
@@ -342,7 +363,14 @@
       <div class="app-notch"><div class="app-notch-bar"></div></div>
       <button class="detail-back-btn" onclick="goBack()">‹</button>
       <div class="detail-body">
-        <img id="detail-img" class="detail-photo" src="" alt="">
+        <div class="detail-photo-wrap">
+          <img id="detail-img" class="detail-photo" src="" alt="">
+          <button class="detail-pnav detail-pnav-l" onclick="detailPrevPhoto()">‹</button>
+          <button class="detail-pnav detail-pnav-r" onclick="detailNextPhoto()">›</button>
+          <div class="detail-photo-count" id="detail-photo-count">1 / 6</div>
+        </div>
+        <button class="fullscreen-btn" onclick="openGallery()">⤢ Büyük Fotoğraf</button>
+        <div class="thumb-strip" id="detail-thumbs"></div>
         <div class="detail-content">
           <div class="detail-title" id="detail-name"></div>
           <div class="detail-price-big" id="detail-price"></div>
@@ -364,6 +392,17 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- FULLSCREEN GALERİ (overlay) -->
+  <div class="gallery-overlay" id="gallery-overlay">
+    <div class="gallery-counter" id="gallery-counter">1 / 6</div>
+    <button class="gallery-close" onclick="closeGallery()">✕</button>
+    <div class="gallery-img-wrap">
+      <img id="gallery-img" class="gallery-img" src="" alt="">
+    </div>
+    <button class="gallery-nav gallery-nav-l" onclick="galleryPrev()">‹</button>
+    <button class="gallery-nav gallery-nav-r" onclick="galleryNext()">›</button>
   </div>
 
   <!-- FİLTRELE -->
@@ -594,17 +633,17 @@
 <script>
 const cars = [
   { name:'Toyota Corolla', year:'2022', price:'895.000 ₺', meta:'📍 İstanbul · Kadıköy · 22.000 km', seller:'Sahibinden', km:'22.000 km', fuel:'Benzin', gear:'Otomatik', color:'Beyaz',
-    photos:['photo-1621007947382-bb3c3994e3fb','photo-1559416523-140ddc3d238c','photo-1568605117036-5fe5e7bab0b7'] },
+    photos:['photo-1621007947382-bb3c3994e3fb','photo-1559416523-140ddc3d238c','photo-1568605117036-5fe5e7bab0b7','photo-1492144534655-ae79c964c9d7','photo-1520031441872-265e4ff70366','photo-1474512879090-37a57c5e8f1f'] },
   { name:'Volkswagen Golf', year:'2022', price:'985.000 ₺', meta:'📍 Bursa · Nilüfer · 52.000 km', seller:'Sahibinden', km:'52.000 km', fuel:'Dizel', gear:'Otomatik', color:'Gri',
-    photos:['photo-1533473359331-0135ef1b58bf','photo-1492144534655-ae79c964c9d7','photo-1520031441872-265e4ff70366'] },
+    photos:['photo-1533473359331-0135ef1b58bf','photo-1492144534655-ae79c964c9d7','photo-1520031441872-265e4ff70366','photo-1568605117036-5fe5e7bab0b7','photo-1559416523-140ddc3d238c','photo-1449965408869-eaa3f722e40d'] },
   { name:'BMW 3 Serisi', year:'2021', price:'1.450.000 ₺', meta:'📍 İstanbul · Kadıköy · 38.000 km', seller:'Galeriden', km:'38.000 km', fuel:'Benzin', gear:'Otomatik', color:'Siyah',
-    photos:['photo-1555215695-3004980ad54e','photo-1617469767053-d3b523a0b982','photo-1526726538690-5cbf90d6db31'] },
+    photos:['photo-1555215695-3004980ad54e','photo-1617469767053-d3b523a0b982','photo-1526726538690-5cbf90d6db31','photo-1552519507-da3b142c6e3d','photo-1542362567-b07e54358753','photo-1580274437636-8a0f4d91c99f'] },
   { name:'Honda Civic', year:'2020', price:'725.000 ₺', meta:'📍 İzmir · Bornova · 67.000 km', seller:'Sahibinden', km:'67.000 km', fuel:'Benzin', gear:'Manuel', color:'Kırmızı',
-    photos:['photo-1494976388531-d1058494cdd8','photo-1519641471654-76ce0107ad5b','photo-1474512879090-37a57c5e8f1f'] },
+    photos:['photo-1494976388531-d1058494cdd8','photo-1519641471654-76ce0107ad5b','photo-1474512879090-37a57c5e8f1f','photo-1621007947382-bb3c3994e3fb','photo-1533473359331-0135ef1b58bf','photo-1485291571150-772bcfc10da5'] },
   { name:'Audi A4', year:'2022', price:'1.850.000 ₺', meta:'📍 İstanbul · Beşiktaş · 22.000 km', seller:'Galeriden', km:'22.000 km', fuel:'Benzin', gear:'Otomatik', color:'Mavi',
-    photos:['photo-1542362567-b07e54358753','photo-1552519507-da3b142c6e3d','photo-1449965408869-eaa3f722e40d'] },
+    photos:['photo-1542362567-b07e54358753','photo-1552519507-da3b142c6e3d','photo-1449965408869-eaa3f722e40d','photo-1555215695-3004980ad54e','photo-1526726538690-5cbf90d6db31','photo-1617469767053-d3b523a0b982'] },
   { name:'Porsche Cayenne', year:'2019', price:'3.200.000 ₺', meta:'📍 İstanbul · Sarıyer · 45.000 km', seller:'Galeriden', km:'45.000 km', fuel:'Benzin', gear:'Otomatik', color:'Gümüş',
-    photos:['photo-1503376780353-7e6692767b70','photo-1485291571150-772bcfc10da5','photo-1580274437636-8a0f4d91c99f'] },
+    photos:['photo-1503376780353-7e6692767b70','photo-1485291571150-772bcfc10da5','photo-1580274437636-8a0f4d91c99f','photo-1519641471654-76ce0107ad5b','photo-1503376780353-7e6692767b70','photo-1492144534655-ae79c964c9d7'] },
 ];
 let idx = 0;
 let photoIdx = 0;
@@ -658,8 +697,12 @@ function nextPhoto() {
   updateDots();
 }
 
+let detailPhotoIdx = 0;
+let galleryPhotoIdx = 0;
+
 function openDetail() {
   const c = cars[idx];
+  detailPhotoIdx = 0;
   document.getElementById('detail-img').src = `https://images.unsplash.com/${c.photos[0]}?w=700&q=80`;
   document.getElementById('detail-name').textContent = c.name + ' ' + c.year;
   document.getElementById('detail-price').textContent = c.price;
@@ -669,9 +712,73 @@ function openDetail() {
   document.getElementById('detail-color').textContent = c.color;
   document.getElementById('detail-seller').textContent = c.seller;
   document.getElementById('detail-location').textContent = c.meta.replace('📍 ','');
+  updateDetailPhotoCount();
+  renderDetailThumbs();
   const el = document.querySelector('.nav-item');
   showView('detail', el);
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+}
+
+function updateDetailPhotoCount() {
+  const c = cars[idx];
+  document.getElementById('detail-photo-count').textContent = `${detailPhotoIdx + 1} / ${c.photos.length}`;
+}
+
+function renderDetailThumbs() {
+  const c = cars[idx];
+  document.getElementById('detail-thumbs').innerHTML = c.photos.map((p, i) =>
+    `<img class="thumb-img${i === 0 ? ' active' : ''}" src="https://images.unsplash.com/${p}?w=120&q=70" onclick="selectThumb(${i})" alt="">`
+  ).join('');
+}
+
+function selectThumb(i) {
+  const c = cars[idx];
+  detailPhotoIdx = i;
+  const img = document.getElementById('detail-img');
+  img.style.opacity = '0';
+  setTimeout(() => { img.src = `https://images.unsplash.com/${c.photos[i]}?w=700&q=80`; img.style.opacity = '1'; }, 150);
+  document.querySelectorAll('.thumb-img').forEach((t, j) => t.classList.toggle('active', j === i));
+  updateDetailPhotoCount();
+}
+
+function detailPrevPhoto() {
+  const c = cars[idx];
+  selectThumb((detailPhotoIdx - 1 + c.photos.length) % c.photos.length);
+}
+
+function detailNextPhoto() {
+  const c = cars[idx];
+  selectThumb((detailPhotoIdx + 1) % c.photos.length);
+}
+
+function openGallery() {
+  galleryPhotoIdx = detailPhotoIdx;
+  updateGalleryImg();
+  document.getElementById('gallery-overlay').classList.add('open');
+}
+
+function closeGallery() {
+  document.getElementById('gallery-overlay').classList.remove('open');
+}
+
+function updateGalleryImg() {
+  const c = cars[idx];
+  const img = document.getElementById('gallery-img');
+  img.style.opacity = '0';
+  setTimeout(() => { img.src = `https://images.unsplash.com/${c.photos[galleryPhotoIdx]}?w=1200&q=90`; img.style.opacity = '1'; }, 150);
+  document.getElementById('gallery-counter').textContent = `${galleryPhotoIdx + 1} / ${c.photos.length}`;
+}
+
+function galleryPrev() {
+  const c = cars[idx];
+  galleryPhotoIdx = (galleryPhotoIdx - 1 + c.photos.length) % c.photos.length;
+  updateGalleryImg();
+}
+
+function galleryNext() {
+  const c = cars[idx];
+  galleryPhotoIdx = (galleryPhotoIdx + 1) % c.photos.length;
+  updateGalleryImg();
 }
 
 function animateLike() {
@@ -773,6 +880,22 @@ function showView(id, el) {
   if (id === 'begeniler') renderBegeniler();
   if (id === 'profil') { const s = document.getElementById('stat-liked'); if(s) s.textContent = liked.length; }
 }
+
+// Gallery swipe support
+const galleryEl = document.getElementById('gallery-overlay');
+let gsx = 0;
+galleryEl.addEventListener('touchstart', e => { gsx = e.touches[0].clientX; }, { passive: true });
+galleryEl.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - gsx;
+  if (dx > 50) galleryPrev();
+  else if (dx < -50) galleryNext();
+});
+// Close gallery on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeGallery();
+  if (e.key === 'ArrowLeft') { if (document.getElementById('gallery-overlay').classList.contains('open')) galleryPrev(); }
+  if (e.key === 'ArrowRight') { if (document.getElementById('gallery-overlay').classList.contains('open')) galleryNext(); }
+});
 
 function toggleFaq(el) {
   el.parentElement.classList.toggle('open');
